@@ -1,0 +1,46 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="{% static 'Menu/css/results.css' %}">
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <form action="checkResults" method="POST">
+        {% csrf_token %}
+       <p id="headAuth">Просмотр данных</p>
+      <input type="text" value="{{login}}" id="login" class="fadeIn second" name="login" placeholder="Введите свой логин: ">
+      <input type="password" value="{{password}}" id="password" class="fadeIn third" name="password" placeholder="Введите свой пароль: ">
+      <input type="submit" class="fadeIn fourth" value="Посмотреть данные">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <br {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</br>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+    {% if datas.count > 0 %}
+    <!-- Переход к регистрации -->
+    <div id="formFooter">
+      <a class="underlineHover" href="http://127.0.0.1:8000/form">Вернуться на главную страницу</a>
+    </div>
+  </div>
+</div>
+<h2 id="mesUSER">Сообщения пользователя</h2>
+    <table>
+        <tr><th>последовательность 1 </th><th>последовательность 2 </th><th>Результат</th></tr>
+        {% for data in datas %}
+            <tr><td>{{ data.sequence1 }}</td><td>{{ data.sequence2 }}</td><td>{{ data.result }}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="{% static 'Menu/css/form.css' %}">
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <form action="calculate", method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+       <p id="headAuth">Расстояние Левенштейна</p>
+      <input type="text" id="login" value="{{username}}" class="fadeIn second" name="login" placeholder="Введите свой логин: ">
+      <input type="password" id="password" value="{{password}}" class="fadeIn third" name="password" placeholder="Введите свой пароль: ">
+        <input type="text" id="seq1" value="{{seq1}}" class="fadeIn second" name="seq1" placeholder="Введите первую последовательность: ">
+        <input type="text" id="seq2" value="{{seq2}}" class="fadeIn second" name="seq2" placeholder="Введите вторую последовательность: ">
+        <input type="text" id="answer" value="{{ans}}" class="fadeIn second" name="answer" placeholder="Здесь будет ответ: ">
+      <input type="submit" class="fadeIn fourth" value="Рассчитать">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <br {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</br>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+    <!-- Переход к регистрации -->
+    <div id="formFooter">
+      <a class="underlineHover" href="http://127.0.0.1:8000/Results">Посмотреть данные расчетов</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
